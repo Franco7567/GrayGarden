@@ -15,6 +15,22 @@ export default function PlantCard({ plant }: Props) {
 
   const status = PLANT_STATUS[plant.status];
 
+const getDaysSincePlanting = () => {
+  const plantedDate = new Date(plant.plantedAt);
+
+  if (isNaN(plantedDate.getTime())) {
+    return 0;
+  }
+
+  const today = new Date();
+
+  const diffTime = today.getTime() - plantedDate.getTime();
+
+  return Math.floor(
+    diffTime / (1000 * 60 * 60 * 24)
+  );
+};
+
   return (
     <View
       style={{
@@ -55,7 +71,7 @@ export default function PlantCard({ plant }: Props) {
           marginTop: 8,
         }}
       >
-        Sembrada el {plant.plantedAt}
+        Hace {getDaysSincePlanting()} días
       </Text>
     </View>
   );
